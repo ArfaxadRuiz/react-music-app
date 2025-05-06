@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #0a0a23; /* Azul muy oscuro */
+    color: rgb(224, 224, 224); /* Letras en blanco */
+    font-family: Arial, sans-serif;
+}
+.App {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    min-height: 100vh; /* Ocupa toda la pantalla */
+    padding: 2rem;
+}
+  
+h2 {
+    margin-top: 2rem;
+    color: rgb(15, 15, 120);
+}
+
+.song {
+    margin-bottom: 2rem;
+  }

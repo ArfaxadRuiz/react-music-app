@@ -5,10 +5,10 @@ class Song extends Component {
     const { titulo, artista, duracion } = this.props;
 
     return (
-      <section>
+      <section className="song">
         <h2>{titulo}</h2>
-        <h3>{artista}</h3>
-        <h4>{duracion}</h4>
+        <p><strong>Artista:</strong> {artista}</p>
+        <p><strong>Duración:</strong> {duracion}</p>
       </section>
     );
   }
