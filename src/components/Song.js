@@ -4,7 +4,7 @@ function Song({ titulo, artista, duracion }) {
 
   useEffect(() => {
     console.log(`Canción cargada: ${titulo} - ${artista}`);
-  }, []);
+  }, [titulo, artista]);
 
   return (
     <section className="song">
