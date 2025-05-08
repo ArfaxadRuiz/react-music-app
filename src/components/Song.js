@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 function Song({ titulo, artista, duracion }) {
-  
+
   useEffect(() => {
     console.log(`Canción cargada: ${titulo} - ${artista}`);
   }, []);
