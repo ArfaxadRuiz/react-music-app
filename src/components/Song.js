@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 function Song({ titulo, artista, duracion }) {
-  // Este efecto se ejecuta una vez cuando se monta el componente
+  
   useEffect(() => {
     console.log(`Canción cargada: ${titulo} - ${artista}`);
   }, []);
