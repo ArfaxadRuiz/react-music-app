@@ -16,8 +16,15 @@ function App() {
     { titulo: "Six", artista: "All That Remains", duracion: "3:06" }
   ]);
 
+  //Constructor de la biblioteca
   const [biblioteca, setBiblioteca] = useState([]);
 
+  // Se ejecuta cada vez que se actualiza la biblioteca
+  useEffect(() => {
+    console.log('La biblioteca ha sido actualizada:', biblioteca);
+  }, [biblioteca]);
+
+  //Agregar cancion a biblioteca, pero primero verificamos si ya existe
   const agregarAColeccion = (cancion) => {
     const yaExiste = biblioteca.some(
       (cancionGuardada) =>
