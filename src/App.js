@@ -38,9 +38,22 @@ function App() {
 
   return (
     <div className="App">
+
       <Header />
-      <SearchResults canciones={resultadosBusqueda} onAgregar={agregarAColeccion} />
-      <Library canciones={biblioteca} />
+      
+      <div className="contenido-principal">
+
+        <div className="main-content">
+          <SearchResults canciones={resultadosBusqueda} onAgregar={agregarAColeccion} />
+        </div>
+
+        <div className="library">
+          <h2>Mi Biblioteca</h2>
+          <Library canciones={biblioteca} />
+        </div>
+
+      </div>
+      
     </div>
   );
 }
