@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
-class Song extends Component {
-  render() {
-    const { titulo, artista, duracion } = this.props;
+function Song({ titulo, artista, duracion }) {
+  // Este efecto se ejecuta una vez cuando se monta el componente
+  useEffect(() => {
+    console.log(`Canción cargada: ${titulo} - ${artista}`);
+  }, []);
 
-    return (
-      <section className="song">
-        <h2>{titulo}</h2>
-        <p><strong>Artista:</strong> {artista}</p>
-        <p><strong>Duración:</strong> {duracion}</p>
-      </section>
-    );
-  }
+  return (
+    <section className="song">
+      <h2>{titulo}</h2>
+      <p><strong>Artista:</strong> {artista}</p>
+      <p><strong>Duración:</strong> {duracion}</p>
+    </section>
+  );
 }
 
 export default Song;
