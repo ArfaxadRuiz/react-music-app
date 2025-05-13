@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 import Library from './components/Library';
 import SongDetail from "./components/SongDetail";
@@ -8,69 +9,61 @@ import { Route, Routes } from 'react-router-dom';
 import useFetch from './hooks/useFetch';
 
 function App() {
+  const [terminoBusqueda, setTerminoBusqueda] = useState("");
+  const [url, setUrl] = useState("");
+  const { data, loading, error } = useFetch(url);
 
-  useEffect(() => {
-    console.log('La aplicación se ha cargado correctamente.');
-  }, []);
-
-  const { data, cargando, error } = useFetch("https://www.theaudiodb.com/api/v1/json/2/album.php?i=112674");
-
-  const resultadosBusqueda = data?.album || [];
-
-  /*const [resultadosBusqueda, setResultadosBusqueda] = useState([
-    { id: 1, titulo: "Bohemian Rhapsody", artista: "Queen", duracion: "5:55" },
-    { id: 2, titulo: "Imagine", artista: "John Lennon", duracion: "3:12" },
-    { id: 3, titulo: "Six", artista: "All That Remains", duracion: "3:06" }
-  ]);*/
-
-  //Constructor de la biblioteca
   const [biblioteca, setBiblioteca] = useState([]);
 
-  // Se ejecuta cada vez que se actualiza la biblioteca
   useEffect(() => {
-    console.log('La biblioteca ha sido actualizada:', biblioteca);
-  }, [biblioteca]);
+    console.log('Datos de la API:', data);
+  }, [data]);
 
-  //Agregar cancion a biblioteca, pero primero verificamos si ya existe
-  const agregarAColeccion = (cancion) => {
+  useEffect(() => {
+    console.log('La URL de búsqueda ha cambiado:', url);
+  }, [url]);
+
+  const handleBuscar = (termino) => {
+    setTerminoBusqueda(termino);
+    setUrl(`https://www.theaudiodb.com/api/v1/json/2/search.php?s=${encodeURIComponent(termino)}`);
+  };
+
+  const agregarAColeccion = (artista) => {
     const yaExiste = biblioteca.some(
-      (cancionGuardada) =>
-        cancionGuardada.idAlbum === cancion.idAlbum
+      (itemGuardado) => itemGuardado.idArtist === artista.idArtist
     );
     if (!yaExiste) {
-      setBiblioteca([...biblioteca, cancion]);
+      setBiblioteca([...biblioteca, artista]);
     }
   };
 
-  // Mostrar mensaje mientras se carga o si hay error
-  if (cargando) return <p>Cargando álbumes...</p>;
+  if (loading) return <p>Cargando artistas...</p>;
   if (error) return <p>Error al cargar datos: {error}</p>;
 
   return (
     <div className="App">
-
       <Header />
-      <Routes>
+      <SearchBar onBuscar={handleBuscar} />
 
-        <Route path='/' element ={
-            <div className="contenido-principal">
+      <Routes>
+        <Route path="/" element={
+          <div className="contenido-principal">
             <div className="main-content">
-              <SearchResults canciones={resultadosBusqueda} onAgregar={agregarAColeccion} />
+              {loading && <p>Cargando...</p>}
+              {error && <p>Error al cargar los artistas</p>}
+              {!loading && data && data.artists && (
+                <SearchResults canciones={data.artists} onAgregar={agregarAColeccion} />
+              )}
             </div>
             <div className="library">
               <h2>Mi Biblioteca</h2>
               <Library canciones={biblioteca} />
             </div>
           </div>
-        }
-      />
+        } />
 
-      <Route path="/song/:id" element={<SongDetail canciones={resultadosBusqueda} />} />
-
+        <Route path="/song/:id" element={<SongDetail canciones={data?.artists || []} />} />
       </Routes>
-      
-      
-      
     </div>
   );
 }

@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
+import React from "react";
 
-function Song({ titulo, artista, año }) {
-
-  useEffect(() => {
-    console.log(`Canción cargada: ${titulo} - ${artista}`);
-  }, [titulo, artista]);
-
+function Song({ nombre, genero, pais, año }) {
   return (
-    <section className="song">
-      <h2>{titulo}</h2>
-      <p><strong>Artista:</strong> {artista}</p>
-      <p><strong>Año de lanzamiento:</strong> {año}</p>
-    </section>
+    <div>
+      <h3>{nombre}</h3>
+      <p><strong>Género:</strong> {genero || "Desconocido"}</p>
+      <p><strong>País:</strong> {pais || "Desconocido"}</p>
+      <p><strong>Año de formación:</strong> {año || "Desconocido"}</p>
+    </div>
   );
 }
 

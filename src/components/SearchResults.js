@@ -3,23 +3,24 @@ import Song from "./Song";
 import { Link } from "react-router-dom";
 
 function SearchResults({ canciones, onAgregar }) {
-    return (
-      <section>
-        <h2>Resultados de búsqueda</h2>
-        {canciones.map((cancion) => (
-        <div key={cancion.idAlbum}>
+  return (
+    <section>
+      <h2>Resultados de búsqueda</h2>
+      {canciones.map((banda) => (
+        <div key={banda.idArtist}>
           <Song
-            titulo={cancion.strAlbum}
-            artista={cancion.strArtist}
-            año={cancion.intYearReleased}
+            nombre={banda.strArtist}
+            genero={banda.strGenre}
+            pais={banda.strCountry}
+            año={banda.intFormedYear}
           />
-          <button onClick={() => onAgregar(cancion)}>Agregar a mi biblioteca</button>
+          <button onClick={() => onAgregar(banda)}>Agregar a mi biblioteca</button>
           <br />
-          <Link to={`/song/${cancion.idAlbum}`}>Ver detalles</Link>
+          <Link to={`/song/${banda.idArtist}`}>Ver detalles</Link>
         </div>
       ))}
-      </section>
-    );
-  }
-    
+    </section>
+  );
+}
+
 export default SearchResults;
