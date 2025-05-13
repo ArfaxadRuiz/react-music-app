@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from "./components/Header";
 import SearchResults from "./components/SearchResults";
 import Library from './components/Library';
-//import SongDetail from "./components/SongDetail";
+import SongDetail from "./components/SongDetail";
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
@@ -13,9 +13,9 @@ function App() {
   }, []);
 
   const [resultadosBusqueda, setResultadosBusqueda] = useState([
-    { titulo: "Bohemian Rhapsody", artista: "Queen", duracion: "5:55" },
-    { titulo: "Imagine", artista: "John Lennon", duracion: "3:12" },
-    { titulo: "Six", artista: "All That Remains", duracion: "3:06" }
+    { id: 1, titulo: "Bohemian Rhapsody", artista: "Queen", duracion: "5:55" },
+    { id: 2, titulo: "Imagine", artista: "John Lennon", duracion: "3:12" },
+    { id: 3, titulo: "Six", artista: "All That Remains", duracion: "3:06" }
   ]);
 
   //Constructor de la biblioteca
@@ -55,6 +55,8 @@ function App() {
           </div>
         }
       />
+
+      <Route path="/song/:id" element={<SongDetail canciones={resultadosBusqueda} />} />
 
       </Routes>
       
