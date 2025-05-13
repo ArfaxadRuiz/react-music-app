@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-function Song({ titulo, artista, duracion }) {
+function Song({ titulo, artista, año }) {
 
   useEffect(() => {
     console.log(`Canción cargada: ${titulo} - ${artista}`);
@@ -10,7 +10,7 @@ function Song({ titulo, artista, duracion }) {
     <section className="song">
       <h2>{titulo}</h2>
       <p><strong>Artista:</strong> {artista}</p>
-      <p><strong>Duración:</strong> {duracion}</p>
+      <p><strong>Año de lanzamiento:</strong> {año}</p>
     </section>
   );
 }
