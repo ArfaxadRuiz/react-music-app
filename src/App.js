@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from "./components/Header";
 import SearchResults from "./components/SearchResults";
 import Library from './components/Library';
+//import SongDetail from "./components/SongDetail";
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -40,19 +42,23 @@ function App() {
     <div className="App">
 
       <Header />
+      <Routes>
+        <Route path='/' element ={
+            <div className="contenido-principal">
+            <div className="main-content">
+              <SearchResults canciones={resultadosBusqueda} onAgregar={agregarAColeccion} />
+            </div>
+            <div className="library">
+              <h2>Mi Biblioteca</h2>
+              <Library canciones={biblioteca} />
+            </div>
+          </div>
+        }
+      />
+
+      </Routes>
       
-      <div className="contenido-principal">
-
-        <div className="main-content">
-          <SearchResults canciones={resultadosBusqueda} onAgregar={agregarAColeccion} />
-        </div>
-
-        <div className="library">
-          <h2>Mi Biblioteca</h2>
-          <Library canciones={biblioteca} />
-        </div>
-
-      </div>
+      
       
     </div>
   );
