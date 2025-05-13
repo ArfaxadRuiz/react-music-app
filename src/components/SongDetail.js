@@ -1,8 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 
 function SongDetail({ canciones }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const cancion = canciones.find((c) => c.id.toString() === id);
 
   if (!cancion) {
@@ -15,6 +17,8 @@ function SongDetail({ canciones }) {
       <h3>{cancion.titulo}</h3>
       <p><strong>Artista:</strong> {cancion.artista}</p>
       <p><strong>Duración:</strong> {cancion.duracion}</p>
+
+      <button onClick={() => navigate(-1)}>Regresar</button>
     </div>
   );
 }
