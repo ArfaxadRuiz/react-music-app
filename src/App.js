@@ -11,17 +11,8 @@ import useFetch from './hooks/useFetch';
 function App() {
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
   const [url, setUrl] = useState("");
-  const { data, loading, error } = useFetch(url);
-
+  const { data, cargando, error } = useFetch(url);
   const [biblioteca, setBiblioteca] = useState([]);
-
-  useEffect(() => {
-    console.log('Datos de la API:', data);
-  }, [data]);
-
-  useEffect(() => {
-    console.log('La URL de búsqueda ha cambiado:', url);
-  }, [url]);
 
   const handleBuscar = (termino) => {
     setTerminoBusqueda(termino);
@@ -37,32 +28,38 @@ function App() {
     }
   };
 
-  if (loading) return <p>Cargando artistas...</p>;
-  if (error) return <p>Error al cargar datos: {error}</p>;
-
   return (
     <div className="App">
       <Header />
       <SearchBar onBuscar={handleBuscar} />
 
       <Routes>
-        <Route path="/" element={
-          <div className="contenido-principal">
-            <div className="main-content">
-              {loading && <p>Cargando...</p>}
-              {error && <p>Error al cargar los artistas</p>}
-              {!loading && data && data.artists && (
-                <SearchResults canciones={data.artists} onAgregar={agregarAColeccion} />
-              )}
+        <Route
+          path="/"
+          element={
+            <div className="contenido-principal">
+              <div className="main-content">
+                {cargando && <p>Cargando artistas...</p>}
+                {error && <p>Error al cargar los artistas: {error}</p>}
+                {!cargando && !error && data && data.artists === null && (
+                  <p>No se encontraron resultados para "{terminoBusqueda}".</p>
+                )}
+                {!cargando && !error && data && data.artists && (
+                  <SearchResults canciones={data.artists} onAgregar={agregarAColeccion} />
+                )}
+              </div>
+              <div className="library">
+                <h2>Mi Biblioteca</h2>
+                <Library canciones={biblioteca} />
+              </div>
             </div>
-            <div className="library">
-              <h2>Mi Biblioteca</h2>
-              <Library canciones={biblioteca} />
-            </div>
-          </div>
-        } />
+          }
+        />
 
-        <Route path="/song/:id" element={<SongDetail canciones={data?.artists || []} />} />
+        <Route
+          path="/song/:id"
+          element={<SongDetail canciones={data?.artists || []} />}
+        />
       </Routes>
     </div>
   );

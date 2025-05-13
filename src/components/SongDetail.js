@@ -22,7 +22,7 @@ function SongDetail({ canciones }) {
       setErrorAlbums(null);
       try {
         const response = await fetch(
-          `https://www.theaudiodb.com/api/v1/json/2/searchalbum.php?s=${encodeURIComponent(banda.strArtist)}`
+          `https://www.theaudiodb.com/api/v1/json/2/album.php?i=${banda.idArtist}`
         );
         const data = await response.json();
         if (data.album) {
@@ -45,7 +45,7 @@ function SongDetail({ canciones }) {
   }
 
   return (
-    <div>
+    <div className="detail-container">
       <h2>Detalles de la Banda</h2>
       <h3>{banda.strArtist}</h3>
       <p><strong>Género:</strong> {banda.strGenre || 'Desconocido'}</p>

@@ -19,14 +19,14 @@ function useFetch(url) {
           throw new Error(`Error HTTP: ${respuesta.status}`);
         }
 
-        const resultadoTexto = await respuesta.text();
+        const resultado = await respuesta.json();
 
-        if (!resultadoTexto) {
-          throw new Error('Respuesta vacía del servidor');
+        if (!resultado || Object.keys(resultado).length === 0) {
+          setData(null);
+          setError("No se encontró información.");
+        } else {
+          setData(resultado);
         }
-
-        const resultado = JSON.parse(resultadoTexto);
-        setData(resultado);
       } catch (error) {
         setError(error.message || 'Ocurrió un error');
         setData(null);
