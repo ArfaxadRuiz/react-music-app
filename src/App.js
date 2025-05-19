@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
@@ -6,6 +6,14 @@ import Library from './components/Library';
 import SongDetail from "./components/SongDetail";
 import { Route, Routes } from 'react-router-dom';
 import useFetch from './hooks/useFetch';
+
+// Importa los estilos
+import {
+  AppContainer,
+  ContenidoPrincipal,
+  MainContent,
+  BibliotecaContainer
+} from './stylesComponents/App.styles';
 
 function App() {
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
@@ -28,7 +36,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <AppContainer>
       <Header />
       <SearchBar onBuscar={handleBuscar} />
 
@@ -36,8 +44,8 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="contenido-principal">
-              <div className="main-content">
+            <ContenidoPrincipal>
+              <MainContent>
                 {cargando && <p>Cargando artistas...</p>}
                 {error && <p>Error al cargar los artistas: {error}</p>}
                 {!cargando && !error && data && data.artists === null && (
@@ -46,12 +54,13 @@ function App() {
                 {!cargando && !error && data && data.artists && (
                   <SearchResults canciones={data.artists} onAgregar={agregarAColeccion} />
                 )}
-              </div>
-              <div className="library">
+              </MainContent>
+
+              <BibliotecaContainer>
                 <h2>Mi Biblioteca</h2>
                 <Library canciones={biblioteca} />
-              </div>
-            </div>
+              </BibliotecaContainer>
+            </ContenidoPrincipal>
           }
         />
 
@@ -60,7 +69,7 @@ function App() {
           element={<SongDetail canciones={data?.artists || []} />}
         />
       </Routes>
-    </div>
+    </AppContainer>
   );
 }
 
