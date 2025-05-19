@@ -1,13 +1,14 @@
 import React from "react";
+import { SongContainer, SongTitle, SongInfo } from "../stylesComponents/Song.styles";
 
-function Song({ nombre, genero, pais, año }) {
+function Song({ nombre, genero, pais, año, selected }) {
   return (
-    <div>
-      <h3>{nombre}</h3>
-      <p><strong>Género:</strong> {genero || "Desconocido"}</p>
-      <p><strong>País:</strong> {pais || "Desconocido"}</p>
-      <p><strong>Año de formación:</strong> {año || "Desconocido"}</p>
-    </div>
+    <SongContainer selected={selected}>
+      <SongTitle>{nombre}</SongTitle>
+      <SongInfo><strong>Género:</strong> {genero || "Desconocido"}</SongInfo>
+      <SongInfo><strong>País:</strong> {pais || "Desconocido"}</SongInfo>
+      <SongInfo><strong>Año de formación:</strong> {año || "Desconocido"}</SongInfo>
+    </SongContainer>
   );
 }
 

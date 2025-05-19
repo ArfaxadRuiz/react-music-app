@@ -1,25 +1,35 @@
 import React from "react";
 import Song from "./Song";
 import { Link } from "react-router-dom";
+import {
+  ResultsSection,
+  BandaWrapper,
+  AddButton,
+  DetailLink
+} from "../stylesComponents/SearchResults.styles";
 
 function SearchResults({ canciones, onAgregar }) {
   return (
-    <section>
+    <ResultsSection>
       <h2>Resultados de búsqueda</h2>
       {canciones.map((banda) => (
-        <div key={banda.idArtist}>
+        <BandaWrapper key={banda.idArtist}>
           <Song
             nombre={banda.strArtist}
             genero={banda.strGenre}
             pais={banda.strCountry}
             año={banda.intFormedYear}
           />
-          <button onClick={() => onAgregar(banda)}>Agregar a mi biblioteca</button>
+          <AddButton onClick={() => onAgregar(banda)}>
+            Agregar a mi biblioteca
+          </AddButton>
           <br />
-          <Link to={`/song/${banda.idArtist}`}>Ver detalles</Link>
-        </div>
+          <DetailLink as={Link} to={`/song/${banda.idArtist}`}>
+            Ver detalles
+          </DetailLink>
+        </BandaWrapper>
       ))}
-    </section>
+    </ResultsSection>
   );
 }
 

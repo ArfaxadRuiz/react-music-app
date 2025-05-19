@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import {
+  DetailContainer,
+  Title,
+  Subtitle,
+  InfoText,
+  AlbumsTitle,
+  AlbumsList,
+  AlbumItem,
+  BackButton
+} from "../stylesComponents/SongDetail.styles";
+
 function SongDetail({ canciones }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,7 +22,6 @@ function SongDetail({ canciones }) {
   const banda = canciones.find((b) => b.idArtist === id);
 
   useEffect(() => {
-    // Solo intentar cargar si hay una banda válida
     const fetchAlbums = async () => {
       if (!banda || !banda.strArtist) {
         setLoadingAlbums(false);
@@ -45,31 +55,31 @@ function SongDetail({ canciones }) {
   }
 
   return (
-    <div className="detail-container">
-      <h2>Detalles de la Banda</h2>
-      <h3>{banda.strArtist}</h3>
-      <p><strong>Género:</strong> {banda.strGenre || 'Desconocido'}</p>
-      <p><strong>País:</strong> {banda.strCountry || 'Desconocido'}</p>
-      <p><strong>Año de formación:</strong> {banda.intFormedYear || 'Desconocido'}</p>
-      <p><strong>Biografía:</strong> {banda.strBiographyEN || 'Biografía no disponible'}</p>
+    <DetailContainer>
+      <Title>Detalles de la Banda</Title>
+      <Subtitle>{banda.strArtist}</Subtitle>
+      <InfoText><strong>Género:</strong> {banda.strGenre || 'Desconocido'}</InfoText>
+      <InfoText><strong>País:</strong> {banda.strCountry || 'Desconocido'}</InfoText>
+      <InfoText><strong>Año de formación:</strong> {banda.intFormedYear || 'Desconocido'}</InfoText>
+      <InfoText><strong>Biografía:</strong> {banda.strBiographyEN || 'Biografía no disponible'}</InfoText>
 
-      <h4>Álbumes</h4>
+      <AlbumsTitle>Álbumes</AlbumsTitle>
       {loadingAlbums ? (
         <p>Cargando álbumes...</p>
       ) : errorAlbums ? (
         <p>{errorAlbums}</p>
       ) : (
-        <ul>
+        <AlbumsList>
           {albums.map((album, index) => (
-            <li key={index}>
+            <AlbumItem key={index}>
               <strong>{album.strAlbum}</strong> ({album.intYearReleased})
-            </li>
+            </AlbumItem>
           ))}
-        </ul>
+        </AlbumsList>
       )}
 
-      <button onClick={() => navigate(-1)}>Regresar</button>
-    </div>
+      <BackButton onClick={() => navigate(-1)}>Regresar</BackButton>
+    </DetailContainer>
   );
 }
 

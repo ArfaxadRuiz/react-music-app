@@ -4,7 +4,6 @@ import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 import Library from './components/Library';
 import SongDetail from "./components/SongDetail";
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import useFetch from './hooks/useFetch';
 
