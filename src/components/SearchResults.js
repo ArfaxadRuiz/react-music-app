@@ -1,6 +1,9 @@
 import React from "react";
 import Song from "./Song";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addSong } from "../redux/libraryActions";
+
 import {
   ResultsSection,
   BandaWrapper,
@@ -8,7 +11,13 @@ import {
   DetailLink
 } from "../stylesComponents/SearchResults.styles";
 
-function SearchResults({ canciones, onAgregar }) {
+function SearchResults({ canciones }) {
+  const dispatch = useDispatch();
+
+  const handleAgregar = (banda) => {
+    dispatch(addSong(banda));
+  };
+
   return (
     <ResultsSection>
       <h2>Resultados de búsqueda</h2>
@@ -20,7 +29,7 @@ function SearchResults({ canciones, onAgregar }) {
             pais={banda.strCountry}
             año={banda.intFormedYear}
           />
-          <AddButton onClick={() => onAgregar(banda)}>
+          <AddButton onClick={() => handleAgregar(banda)}>
             Agregar a mi biblioteca
           </AddButton>
           <br />
