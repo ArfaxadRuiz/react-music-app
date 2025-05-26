@@ -1,11 +1,11 @@
 import React from "react";
-import Song from "./Song";
 import { useDispatch, useSelector } from "react-redux";
-import { removeSong } from "../redux/libraryActions";
-import { LibraryContainer, RemoveButton } from '../stylesComponents/Library.styles';
+import { removeSong } from "../redux/slices/librarySlice";
+import Song from "./Song";
+import { LibraryContainer, RemoveButton } from "../stylesComponents/Library.styles";
 
 function Library() {
-  const biblioteca = useSelector(state => state); // Accede al estado global
+  const biblioteca = useSelector((state) => state.library); // Accede solo al slice de biblioteca
   const dispatch = useDispatch();
 
   const handleEliminar = (id) => {

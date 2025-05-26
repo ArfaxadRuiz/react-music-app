@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import {
   DetailContainer,
   Title,
@@ -12,14 +12,15 @@ import {
   BackButton
 } from "../stylesComponents/SongDetail.styles";
 
-function SongDetail({ canciones }) {
+function SongDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const canciones = useSelector((state) => state.search.results);
+  const banda = canciones.find((b) => b.idArtist === id);
+
   const [albums, setAlbums] = useState([]);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
   const [errorAlbums, setErrorAlbums] = useState(null);
-
-  const banda = canciones.find((b) => b.idArtist === id);
 
   useEffect(() => {
     const fetchAlbums = async () => {

@@ -26,6 +26,7 @@ function useFetch(url) {
           setError("No se encontró información.");
         } else {
           setData(resultado);
+          console.log("Datos recibidos de la API:", resultado);
         }
       } catch (error) {
         setError(error.message || 'Ocurrió un error');

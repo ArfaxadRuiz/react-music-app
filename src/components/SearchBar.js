@@ -5,13 +5,18 @@ import {
   SearchButton
 } from "../stylesComponents/SearchBar.styles";
 
-function SearchBar({ onBuscar }) {
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSongs } from "../redux/slices/searchSlice";
+
+function SearchBar() {
   const [termino, setTermino] = useState("");
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.search.loading);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (termino.trim() !== "") {
-      onBuscar(termino.trim());
+      dispatch(fetchSongs(termino.trim()));
     }
   };
 
@@ -23,7 +28,9 @@ function SearchBar({ onBuscar }) {
         onChange={(e) => setTermino(e.target.value)}
         placeholder="Buscar banda ..."
       />
-      <SearchButton type="submit">Buscar</SearchButton>
+      <SearchButton type="submit" disabled={loading}>
+        {loading ? "Buscando..." : "Buscar"}
+      </SearchButton>
     </SearchForm>
   );
 }

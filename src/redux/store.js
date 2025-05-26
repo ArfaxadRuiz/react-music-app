@@ -1,10 +1,12 @@
-// src/redux/store.js
-import { createStore } from 'redux';
-import libraryReducer from './libraryReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import searchReducer from './slices/searchSlice';
+import libraryReducer from './slices/librarySlice';
 
-const store = createStore(
-  libraryReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = configureStore({
+  reducer: {
+    search: searchReducer,
+    library: libraryReducer
+  }
+});
 
 export default store;
